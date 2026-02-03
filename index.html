@@ -1,201 +1,153 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Nathalia 💘</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Saint-Valentin ❄️❤️</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Comic Sans MS", Arial;
+    overflow: hidden;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: "Comic Sans MS", "Arial", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+  .container {
+    text-align: center;
+  }
 
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 460px;
-      width: 90%;
-      position: relative;
-      z-index: 2;
-    }
+  button {
+    font-size: 2rem;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+    transition: transform 0.3s;
+  }
 
-    h1 {
-      color: #e60073;
-      margin-bottom: 15px;
-    }
+  button:hover {
+    transform: scale(1.2);
+  }
 
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
+  .fall {
+    position: fixed;
+    top: -10px;
+    animation: fall linear infinite;
+    pointer-events: none;
+  }
 
-    img {
-      width: 220px;
-      border-radius: 20px;
-      margin-bottom: 25px;
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
     }
+  }
 
-    button {
-      padding: 20px 50px;
-      font-size: 22px;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      background-color: #ff4d88;
-      color: white;
-      transition: transform 0.25s ease;
-    }
-
-    button:hover {
-      transform: scale(1.15);
-    }
-
-    /* FLOCONS & CŒURS */
-    .falling {
-      position: fixed;
-      top: -10px;
-      user-select: none;
-      pointer-events: none;
-      animation: fall linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-      }
-    }
-
-    #countdown {
-      font-size: 20px;
-      font-weight: bold;
-      color: #e60073;
-      margin-top: 15px;
-    }
-  </style>
+  .countdown {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    color: #7a003c;
+  }
+</style>
 </head>
+
 <body>
+<div class="container" id="page1">
+  <h1>💘 Nathalia 💘</h1>
+  <p>Acceptes-tu d’être ma Valentine ?</p>
+  <button id="yes">OUI 😻</button>
+</div>
 
-  <!-- AUDIO -->
-  <audio id="meow">
-    <source src="https://www.soundjay.com/animal/cat-meow-2.mp3" type="audio/mpeg">
-  </audio>
+<!-- Sons -->
+<audio id="miaou" src="https://www.soundjay.com/animal/cat-meow-2.mp3"></audio>
 
-  <audio id="music" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  </audio>
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/23/audio_8c4a2c5fa0.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- PAGE 1 -->
-  <div class="container" id="page1">
-    <h1>Nathalia 💕</h1>
-    <p>Veux-tu être ma Valentine ?</p>
+<script>
+const yes = document.getElementById("yes");
+const miaou = document.getElementById("miaou");
+const music = document.getElementById("music");
 
-    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Chat amoureux">
+music.volume = 0.6;
 
-    <button id="yes">Oui 💖</button>
-  </div>
+yes.addEventListener("click", () => {
+  miaou.volume = 1;
+  miaou.play();
+  music.play();
 
-  <!-- PAGE 2 -->
-  <div class="container" id="page2" style="display:none;">
-    <h1>🎉 Félicitations Nathalia 🎉</h1>
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      background:linear-gradient(135deg,#ffe0ec,#ffd6a5);
+      font-family:Comic Sans MS, Arial;
+    ">
+      <h1 style="color:#c9184a;">🎉 Félicitations Nathalia 🎉</h1>
+      <p>
+        Tu as gagné <strong>la plus montagnarde des Saint-Valentin</strong> ❄️🏔️<br><br>
+        Avec <strong>ton petit choups</strong> 💕<br><br>
+        Prépare <strong>tes plus belles MoonBoots</strong> pour le <strong>14 février</strong> 😼
+      </p>
 
-    <p>
-      Tu as gagné <br>
-      <strong>la plus montagnarde des Saint-Valentin 🏔️💘</strong>
-    </p>
+      <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="260">
 
-    <p>
-      À partager avec <strong>ton petit choups</strong> 💕
-    </p>
+      <div class="countdown" id="countdown"></div>
+    </div>
+  `;
 
-    <p>
-      Prépare <strong>tes plus belles MoonBoots</strong><br>
-      pour le <strong>14 février ❄️</strong>
-    </p>
+  startSnowAndHearts();
+  startCountdown();
+});
 
-    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Chat qui approuve">
+function startSnowAndHearts() {
+  setInterval(() => createFall("❄️"), 300);
+  setInterval(() => createFall("❤️"), 500);
+}
 
-    <div id="countdown"></div>
+function createFall(symbol) {
+  const el = document.createElement("div");
+  el.className = "fall";
+  el.textContent = symbol;
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = Math.random() * 20 + 15 + "px";
+  el.style.animationDuration = Math.random() * 5 + 5 + "s";
+  document.body.appendChild(el);
 
-    <p style="font-size:15px; color:#555;">
-      Le chat approuve.  
-      La neige tombe.  
-      Le temps s’écoule.
-    </p>
-  </div>
+  setTimeout(() => el.remove(), 15000);
+}
 
-  <script>
-    const yesButton = document.getElementById("yes");
-    const meow = document.getElementById("meow");
-    const music = document.getElementById("music");
+function startCountdown() {
+  const target = new Date(new Date().getFullYear(), 1, 14, 0, 0, 0);
 
-    yesButton.addEventListener("click", () => {
-      meow.volume = 1;
-      music.volume = 0.7;
-      meow.play();
-      music.play();
+  function update() {
+    const now = new Date();
+    let diff = target - now;
 
-      document.getElementById("page1").style.display = "none";
-      document.getElementById("page2").style.display = "block";
+    if (diff < 0) diff = 0;
 
-      startFalling();
-      startCountdown();
-    });
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
 
-    function startFalling() {
-      setInterval(() => createFalling("❄️"), 400);
-      setInterval(() => createFalling("💖"), 700);
-    }
+    document.getElementById("countdown").textContent =
+      `⏳ ${d} jours ${h}h ${m}m ${s}s avant le chalet 💕`;
+  }
 
-    function createFalling(symbol) {
-      const el = document.createElement("div");
-      el.className = "falling";
-      el.textContent = symbol;
-
-      el.style.left = Math.random() * 100 + "vw";
-      el.style.fontSize = Math.random() * 12 + 12 + "px";
-      el.style.animationDuration = Math.random() * 5 + 6 + "s";
-      el.style.opacity = Math.random();
-
-      document.body.appendChild(el);
-
-      setTimeout(() => el.remove(), 12000);
-    }
-
-    function startCountdown() {
-      const countdownEl = document.getElementById("countdown");
-      const targetDate = new Date(new Date().getFullYear(), 1, 14, 0, 0, 0);
-
-      setInterval(() => {
-        const now = new Date();
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-          countdownEl.textContent = "C’est aujourd’hui 💘🏔️";
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        countdownEl.textContent =
-          `⏳ ${days}j ${hours}h ${minutes}m ${seconds}s`;
-      }, 1000);
-    }
-  </script>
-
+  update();
+  setInterval(update, 1000);
+}
+</script>
 </body>
 </html>
