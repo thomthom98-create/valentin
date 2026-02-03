@@ -94,41 +94,62 @@
     </div>
   </div>
 
-  <script>
-    const noButton = document.getElementById("no");
+ <script>
+  const noButton = document.getElementById("no");
+  const container = document.querySelector(".buttons");
 
-    noButton.addEventListener("mouseenter", () => {
-      const container = document.querySelector(".buttons");
+  function moveButton() {
+    const padding = 10;
 
-      const maxX = container.offsetWidth - noButton.offsetWidth;
-      const maxY = container.offsetHeight - noButton.offsetHeight;
+    const maxX = container.offsetWidth - noButton.offsetWidth - padding;
+    const maxY = container.offsetHeight - noButton.offsetHeight - padding;
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
-      noButton.style.left = randomX + "px";
-      noButton.style.top = randomY + "px";
-    });
+    noButton.style.left = randomX + "px";
+    noButton.style.top = randomY + "px";
+  }
 
-    document.getElementById("yes").addEventListener("click", () => {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
-          background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-          font-family:Comic Sans MS, Arial;
-          text-align:center;
-        ">
-          <h1 style="color:#e60073;">Yessss 💘🐱💘</h1>
-          <p>Le chat approuve cette décision.</p>
-          <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="260">
-        </div>
-      `;
-    });
-  </script>
+  // Souris : avant même le survol
+  noButton.addEventListener("mouseover", moveButton);
+  noButton.addEventListener("mouseenter", moveButton);
+
+  // Mobile / tactile
+  noButton.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveButton();
+  });
+
+  // Clavier (au cas où… on ne sait jamais)
+  noButton.addEventListener("focus", moveButton);
+
+  // Sécurité ultime : même si un clic passait (il ne passera pas)
+  noButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveButton();
+  });
+
+  document.getElementById("yes").addEventListener("click", () => {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+        font-family:Comic Sans MS, Arial;
+        text-align:center;
+      ">
+        <h1 style="color:#e60073;">Yessss 💘🐱💘</h1>
+        <p>Le bouton Non a officiellement abandonné.</p>
+        <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="260">
+      </div>
+    `;
+  });
+</script>
+
 
 </body>
 </html>
