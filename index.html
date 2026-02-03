@@ -14,6 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .container {
@@ -22,8 +23,10 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 420px;
+      max-width: 440px;
       width: 90%;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -33,13 +36,14 @@
 
     p {
       font-size: 18px;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
+      line-height: 1.4;
     }
 
     img {
       width: 220px;
       border-radius: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
     button {
@@ -56,9 +60,32 @@
     button:hover {
       transform: scale(1.15);
     }
+
+    /* ❄️ FLOCONS */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- AUDIO MIAOU -->
+  <audio id="meow">
+    <source src="https://www.soundjay.com/animal/cat-meow-2.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- PAGE 1 -->
   <div class="container" id="page1">
@@ -73,7 +100,7 @@
     <button id="yes">Oui 💖</button>
   </div>
 
-  <!-- PAGE 2 (cachée au départ) -->
+  <!-- PAGE 2 -->
   <div class="container" id="page2" style="display:none;">
     <h1>🎉 Félicitations Nathalia 🎉</h1>
 
@@ -82,23 +109,61 @@
       <strong>la plus montagnarde des Saint-Valentin 🏔️💘</strong>
     </p>
 
+    <p>
+      À partager avec <strong>ton petit choups</strong> 💕
+    </p>
+
+    <p>
+      Merci de préparer <strong>tes plus belles MoonBoots</strong><br>
+      pour le <strong>14 février ❄️</strong>
+    </p>
+
     <img 
       src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
       alt="Chat qui approuve"
     >
 
     <p style="font-size:16px; color:#555;">
-      Approbation officielle du chat.
+      Approbation officielle du chat.<br>
+      Il neige donc c’est sérieux.
     </p>
   </div>
 
   <script>
-    document.getElementById("yes").addEventListener("click", () => {
+    const yesButton = document.getElementById("yes");
+    const meow = document.getElementById("meow");
+
+    yesButton.addEventListener("click", () => {
+      // MIAOU 🐱
+      meow.play();
+
+      // Changement de page
       document.getElementById("page1").style.display = "none";
       document.getElementById("page2").style.display = "block";
+
+      // FLOCONS ❄️
+      for (let i = 0; i < 30; i++) {
+        createSnowflake();
+      }
     });
+
+    function createSnowflake() {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄️";
+
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+      snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+      snowflake.style.opacity = Math.random();
+
+      document.body.appendChild(snowflake);
+
+      setTimeout(() => {
+        snowflake.remove();
+      }, 10000);
+    }
   </script>
 
 </body>
 </html>
-
