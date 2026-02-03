@@ -23,7 +23,7 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 440px;
+      max-width: 460px;
       width: 90%;
       position: relative;
       z-index: 2;
@@ -36,14 +36,14 @@
 
     p {
       font-size: 18px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       line-height: 1.4;
     }
 
     img {
       width: 220px;
       border-radius: 20px;
-      margin-bottom: 28px;
+      margin-bottom: 25px;
     }
 
     button {
@@ -61,15 +61,13 @@
       transform: scale(1.15);
     }
 
-    /* ❄️ FLOCONS */
-    .snowflake {
+    /* FLOCONS & CŒURS */
+    .falling {
       position: fixed;
       top: -10px;
-      color: white;
-      font-size: 1em;
       user-select: none;
       pointer-events: none;
-      animation: fall linear infinite;
+      animation: fall linear forwards;
       z-index: 1;
     }
 
@@ -78,13 +76,24 @@
         transform: translateY(110vh);
       }
     }
+
+    #countdown {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e60073;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- AUDIO MIAOU -->
+  <!-- AUDIO -->
   <audio id="meow">
     <source src="https://www.soundjay.com/animal/cat-meow-2.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   </audio>
 
   <!-- PAGE 1 -->
@@ -92,10 +101,7 @@
     <h1>Nathalia 💕</h1>
     <p>Veux-tu être ma Valentine ?</p>
 
-    <img 
-      src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" 
-      alt="Chat amoureux"
-    >
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Chat amoureux">
 
     <button id="yes">Oui 💖</button>
   </div>
@@ -114,54 +120,80 @@
     </p>
 
     <p>
-      Merci de préparer <strong>tes plus belles MoonBoots</strong><br>
+      Prépare <strong>tes plus belles MoonBoots</strong><br>
       pour le <strong>14 février ❄️</strong>
     </p>
 
-    <img 
-      src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
-      alt="Chat qui approuve"
-    >
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Chat qui approuve">
 
-    <p style="font-size:16px; color:#555;">
-      Approbation officielle du chat.<br>
-      Il neige donc c’est sérieux.
+    <div id="countdown"></div>
+
+    <p style="font-size:15px; color:#555;">
+      Le chat approuve.  
+      La neige tombe.  
+      Le temps s’écoule.
     </p>
   </div>
 
   <script>
     const yesButton = document.getElementById("yes");
     const meow = document.getElementById("meow");
+    const music = document.getElementById("music");
 
     yesButton.addEventListener("click", () => {
-      // MIAOU 🐱
+      meow.volume = 1;
+      music.volume = 0.7;
       meow.play();
+      music.play();
 
-      // Changement de page
       document.getElementById("page1").style.display = "none";
       document.getElementById("page2").style.display = "block";
 
-      // FLOCONS ❄️
-      for (let i = 0; i < 30; i++) {
-        createSnowflake();
-      }
+      startFalling();
+      startCountdown();
     });
 
-    function createSnowflake() {
-      const snowflake = document.createElement("div");
-      snowflake.className = "snowflake";
-      snowflake.textContent = "❄️";
+    function startFalling() {
+      setInterval(() => createFalling("❄️"), 400);
+      setInterval(() => createFalling("💖"), 700);
+    }
 
-      snowflake.style.left = Math.random() * 100 + "vw";
-      snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
-      snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
-      snowflake.style.opacity = Math.random();
+    function createFalling(symbol) {
+      const el = document.createElement("div");
+      el.className = "falling";
+      el.textContent = symbol;
 
-      document.body.appendChild(snowflake);
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = Math.random() * 12 + 12 + "px";
+      el.style.animationDuration = Math.random() * 5 + 6 + "s";
+      el.style.opacity = Math.random();
 
-      setTimeout(() => {
-        snowflake.remove();
-      }, 10000);
+      document.body.appendChild(el);
+
+      setTimeout(() => el.remove(), 12000);
+    }
+
+    function startCountdown() {
+      const countdownEl = document.getElementById("countdown");
+      const targetDate = new Date(new Date().getFullYear(), 1, 14, 0, 0, 0);
+
+      setInterval(() => {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          countdownEl.textContent = "C’est aujourd’hui 💘🏔️";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownEl.textContent =
+          `⏳ ${days}j ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
     }
   </script>
 
