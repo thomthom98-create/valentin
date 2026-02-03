@@ -94,40 +94,32 @@
     </div>
   </div>
 
- <script>
+<script>
   const noButton = document.getElementById("no");
-  const container = document.querySelector(".buttons");
+  const yesButton = document.getElementById("yes");
 
-  function moveButton() {
-    const padding = 10;
+  function eliminateNo() {
+    // Disparition dramatique du "Non"
+    noButton.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+    noButton.style.opacity = "0";
+    noButton.style.transform = "scale(0.5)";
 
-    const maxX = container.offsetWidth - noButton.offsetWidth - padding;
-    const maxY = container.offsetHeight - noButton.offsetHeight - padding;
+    setTimeout(() => {
+      noButton.style.display = "none";
+    }, 300);
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    noButton.style.left = randomX + "px";
-    noButton.style.top = randomY + "px";
+    // Le "Oui" devient dominant
+    yesButton.style.transition = "transform 0.3s ease";
+    yesButton.style.transform = "scale(1.4)";
   }
 
-  // Souris : avant même le survol
-  noButton.addEventListener("mouseover", moveButton);
-  noButton.addEventListener("mouseenter", moveButton);
+  // Souris
+  noButton.addEventListener("mouseenter", eliminateNo);
 
-  // Mobile / tactile
+  // Mobile
   noButton.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    moveButton();
-  });
-
-  // Clavier (au cas où… on ne sait jamais)
-  noButton.addEventListener("focus", moveButton);
-
-  // Sécurité ultime : même si un clic passait (il ne passera pas)
-  noButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    moveButton();
+    eliminateNo();
   });
 
   document.getElementById("yes").addEventListener("click", () => {
@@ -142,13 +134,14 @@
         font-family:Comic Sans MS, Arial;
         text-align:center;
       ">
-        <h1 style="color:#e60073;">Yessss 💘🐱💘</h1>
-        <p>Le bouton Non a officiellement abandonné.</p>
-        <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="260">
+        <h1 style="color:#e60073;">OUI ABSOLU 💘🐱</h1>
+        <p>Le bouton Non a quitté la réalité.</p>
+        <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="260">
       </div>
     `;
   });
 </script>
+
 
 
 </body>
