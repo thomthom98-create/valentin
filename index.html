@@ -9,11 +9,11 @@
     body {
       margin: 0;
       height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: "Comic Sans MS", "Arial", sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: "Comic Sans MS", "Arial", sans-serif;
     }
 
     .container {
@@ -60,11 +60,11 @@
 </head>
 <body>
 
-  <div class="container" id="page-1">
+  <!-- PAGE 1 -->
+  <div class="container" id="page1">
     <h1>Nathalia 💕</h1>
     <p>Veux-tu être ma Valentine ?</p>
 
-    <!-- Chat mignon initial -->
     <img 
       src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" 
       alt="Chat amoureux"
@@ -73,44 +73,32 @@
     <button id="yes">Oui 💖</button>
   </div>
 
+  <!-- PAGE 2 (cachée au départ) -->
+  <div class="container" id="page2" style="display:none;">
+    <h1>🎉 Félicitations Nathalia 🎉</h1>
+
+    <p>
+      Tu as gagné <br>
+      <strong>la plus montagnarde des Saint-Valentin 🏔️💘</strong>
+    </p>
+
+    <img 
+      src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
+      alt="Chat qui approuve"
+    >
+
+    <p style="font-size:16px; color:#555;">
+      Approbation officielle du chat.
+    </p>
+  </div>
+
   <script>
     document.getElementById("yes").addEventListener("click", () => {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
-          background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-          font-family:Comic Sans MS, Arial;
-          text-align:center;
-          padding:40px;
-        ">
-          <h1 style="color:#e60073; margin-bottom:20px;">
-            APPROUVÉ PAR LE CHAT 🐱✔️
-          </h1>
-
-          <p style="font-size:20px; margin-bottom:30px;">
-            Décision validée.<br>
-            Le chat a examiné la situation.<br>
-            Le chat est d’accord.
-          </p>
-
-          <!-- Chat qui approuve -->
-          <img 
-            src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
-            width="260"
-            style="border-radius:20px; margin-bottom:25px;"
-          >
-
-          <p style="font-size:16px; color:#555;">
-            Quand un chat approuve, il n’y a plus rien à discuter.
-          </p>
-        </div>
-      `;
+      document.getElementById("page1").style.display = "none";
+      document.getElementById("page2").style.display = "block";
     });
   </script>
 
 </body>
 </html>
+
